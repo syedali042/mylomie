@@ -1,6 +1,5 @@
 let Router = require("express").Router();
 const userCtrl = require("../controllers/user.ctrl.js");
-const passport = require('passport');
 const {body,param} = require("express-validator");
 const utils= require('../../config/utils.js');
 
@@ -20,7 +19,7 @@ Router.post("/updateuserdetails", userCtrl.updateUserDetails);
 
 Router.post("/deleteuser",  userCtrl.deleteUser);
 
-Router.get("/facebook", passport.authenticate("facebook"));
+Router.get("/auth/facebook", passport.authenticate("facebook"));
 
 Router.get(
   "/auth/facebook/callback",
@@ -37,30 +36,5 @@ Router.get("/fail", (req, res) => {
 Router.get("/", (req, res) => {
   res.send("Success");
 });
-
-
-Router.get("/failed", (req, res) => {
-    res.send("Failed")
-})
-Router.get("/success", (req, res) => {
-    res.send(`Welcome ${req.user.email}`)
-})
-
-Router.get('/google',
-    passport.authenticate('google', {
-            scope:
-                ['email', 'profile']
-        }
-    ));
-
-Router.get('/google/callback',
-    passport.authenticate('google', {
-        failureRedirect: '/failed',
-    }),
-    function (req, res) {
-        res.redirect('/success')
-
-    }
-);
 
 module.exports = Router;

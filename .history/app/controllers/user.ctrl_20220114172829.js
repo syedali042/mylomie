@@ -7,8 +7,6 @@ const passport = require("passport");
 const dotenv = require("dotenv");
 const strategy = require("passport-facebook");
 const FacebookStrategy = strategy.Strategy;
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-
 dotenv.config();
 passport.serializeUser(function(user, done) {
   done(null, user);

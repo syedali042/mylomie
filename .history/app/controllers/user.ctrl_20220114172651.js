@@ -7,8 +7,6 @@ const passport = require("passport");
 const dotenv = require("dotenv");
 const strategy = require("passport-facebook");
 const FacebookStrategy = strategy.Strategy;
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-
 dotenv.config();
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -43,13 +41,12 @@ passport.use(
 passport.use(new GoogleStrategy({
     clientID:"1074489727387-tq7t9u07qokdo2f51c098074mlch61gb.apps.googleusercontent.com",
     clientSecret:"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",
-    callbackURL: "http://localhost:8000/google/callback",
+    callbackURL: "http://localhost:5000/google/callback",
     passReqToCallback   : true
 },
-
-    function(request, accessToken, refreshToken, profile, done) {
-            return done(null, profile);
-    }
+function(request, accessToken, refreshToken, profile, done) {
+        return done(null, profile);
+}
 ));
 
 

@@ -20,7 +20,7 @@ Router.post("/updateuserdetails", userCtrl.updateUserDetails);
 
 Router.post("/deleteuser",  userCtrl.deleteUser);
 
-Router.get("/facebook", passport.authenticate("facebook"));
+Router.get("/auth/facebook", passport.authenticate("facebook"));
 
 Router.get(
   "/auth/facebook/callback",
@@ -37,30 +37,5 @@ Router.get("/fail", (req, res) => {
 Router.get("/", (req, res) => {
   res.send("Success");
 });
-
-
-Router.get("/failed", (req, res) => {
-    res.send("Failed")
-})
-Router.get("/success", (req, res) => {
-    res.send(`Welcome ${req.user.email}`)
-})
-
-Router.get('/google',
-    passport.authenticate('google', {
-            scope:
-                ['email', 'profile']
-        }
-    ));
-
-Router.get('/google/callback',
-    passport.authenticate('google', {
-        failureRedirect: '/failed',
-    }),
-    function (req, res) {
-        res.redirect('/success')
-
-    }
-);
 
 module.exports = Router;
